@@ -228,7 +228,7 @@ async def get_ai_prediction(
             )
         
         # Calculate risk using AI predictor
-        prediction_data = calculate_risk(
+        prediction_data = await calculate_risk(
             heart_rate=latest_reading.heart_rate,
             blood_pressure=latest_reading.blood_pressure,
             temperature=latest_reading.temperature,
