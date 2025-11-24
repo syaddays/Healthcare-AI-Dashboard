@@ -21,9 +21,9 @@ class Patient(PatientBase):
 # Patient Reading schemas
 class MetricsBase(BaseModel):
     blood_pressure: str = Field(..., pattern=r'^\d{2,3}/\d{2,3}$')  # e.g., "120/80"
-    heart_rate: int = Field(..., ge=30, le=300)
-    temperature: float = Field(..., ge=90.0, le=110.0)
-    oxygen_saturation: float = Field(..., ge=70.0, le=100.0)
+    heart_rate: int = Field(..., ge=0, le=300)  # Allow wider range for audit to catch
+    temperature: float = Field(..., ge=0.0, le=200.0)  # Allow wider range for audit to catch
+    oxygen_saturation: float = Field(..., ge=0.0, le=100.0)
 
 class MetricsCreate(MetricsBase):
     pass
@@ -41,6 +41,7 @@ class PredictionBase(BaseModel):
     risk_score: float = Field(..., ge=0.0, le=1.0)
     risk_level: str = Field(..., pattern=r'^(LOW|MEDIUM|HIGH)$')
     recommendation: str
+    baseline_analysis: Optional[str] = None
 
 class Prediction(PredictionBase):
     id: int
@@ -65,7 +66,17 @@ class PaginatedPatients(BaseModel):
     per_page: int
     total_pages: int
 
+class TriageScore(BaseModel):
+    id: int
+    patient_id: int
+    name: str
+    urgency_score: float
+    reason: str
+    current_risk: str
+    trend: str
+
 class APIResponse(BaseModel):
     status: str
     message: str
     data: Optional[dict] = None
+    warning: Optional[str] = None
