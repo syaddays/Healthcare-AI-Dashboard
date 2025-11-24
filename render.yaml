@@ -1,0 +1,22 @@
+services:
+  # Backend API Service
+  - type: web
+    name: smart-hospital-backend
+    env: python
+    region: oregon
+    plan: free
+    buildCommand: pip install --upgrade pip && pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: HUGGINGFACE_API_KEY
+        sync: false
+    healthCheckPath: /
+    
+  # PostgreSQL Database
+  - type: pserv
+    name: smart-hospital-db
+    env: docker
+    plan: free
+    region: oregon
