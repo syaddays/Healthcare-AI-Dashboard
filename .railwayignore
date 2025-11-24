@@ -1,0 +1,8 @@
+# Ignore frontend and other non-backend files
+frontend/
+.github/
+*.md
+!backend/
+docker-compose.yml
+.env.example
+verify_smart_hospital.py
