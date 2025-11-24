@@ -13,7 +13,7 @@ A full-stack healthcare application that uses AI to monitor patient vitals, dete
 
 
 ![Healthcare AI Dashboard Screenshot](backend/healthcare1.png)
-
+![Healthcare AI Dashboard Screenshot](backend/healthcare2.png)
 ---
 
 ## 🎯 Problem Statement
